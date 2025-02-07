@@ -159,6 +159,10 @@ function getSupportedLocales() {
             name: "English"
         },
         {
+            id: "pt-BR",
+            name: "Brazilian Portuguese"
+        },
+        {
             id: "de",
             name: "Deutsch"
         },
