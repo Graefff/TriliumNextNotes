@@ -146,7 +146,10 @@ function getAndValidateParent(params: GetValidateParams) {
     }
 
     if (!params.ignoreForbiddenParents) {
-        if (["_lbRoot", "_hidden"].includes(parentNote.noteId) || parentNote.noteId.startsWith("_lbTpl") || parentNote.isOptions()) {
+        if (["_lbRoot", "_hidden"].includes(parentNote.noteId)
+                || parentNote.noteId.startsWith("_lbTpl")
+                || parentNote.noteId.startsWith("_help")
+                || parentNote.isOptions()) {
             throw new ValidationError(`Creating child notes into '${parentNote.noteId}' is not allowed.`);
         }
     }
@@ -731,7 +734,7 @@ function updateNoteData(noteId: string, content: string, attachments: Attachment
     note.setContent(newContent, { forceFrontendReload });
 
     if (attachments?.length > 0) {
-      const existingAttachmentsByTitle = toMap(note.getAttachments({ includeContentLength: false }), "title");
+        const existingAttachmentsByTitle = toMap(note.getAttachments({ includeContentLength: false }), "title");
 
         for (const { attachmentId, role, mime, title, position, content } of attachments) {
             const existingAttachment = existingAttachmentsByTitle.get(title);

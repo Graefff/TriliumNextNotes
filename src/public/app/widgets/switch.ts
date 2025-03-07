@@ -123,13 +123,13 @@ export default class SwitchWidget extends NoteContextAwareWidget {
     private $switchButton!: JQuery<HTMLElement>;
     private $switchToggle!: JQuery<HTMLElement>;
     private $switchName!: JQuery<HTMLElement>;
-    private $helpButton!: JQuery<HTMLElement>;
+    protected $helpButton!: JQuery<HTMLElement>;
 
-    private switchOnName = "";
-    private switchOnTooltip = "";
+    protected switchOnName = "";
+    protected switchOnTooltip = "";
 
-    private switchOffName = "";
-    private switchOffTooltip = "";
+    protected switchOffName = "";
+    protected switchOffTooltip = "";
 
     private disabledTooltip = "";
 
@@ -185,7 +185,7 @@ export default class SwitchWidget extends NoteContextAwareWidget {
 
     /** Gets or sets whether the switch is enabled. */
     get canToggle() {
-        return (!this.$switchButton.hasClass("disabled"));
+        return !this.$switchButton.hasClass("disabled");
     }
 
     set canToggle(isEnabled) {

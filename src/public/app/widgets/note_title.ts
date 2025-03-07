@@ -18,11 +18,19 @@ const TPL = `
     }
 
     .note-title-widget input.note-title {
-        font-size: 180%;
+        font-size: 110%;
         border: 0;
         margin: 2px 0px;
         min-width: 5em;
         width: 100%;
+    }
+
+    body.mobile .note-title-widget input.note-title {
+        padding: 0;
+    }
+
+    body.desktop .note-title-widget input.note-title {
+        font-size: 180%;
     }
 
     .note-title-widget input.note-title.protected {
@@ -81,9 +89,12 @@ export default class NoteTitleWidget extends NoteContextAwareWidget {
     }
 
     async refreshWithNote(note: FNote) {
-        const isReadOnly = (note.isProtected && !protectedSessionHolder.isProtectedSessionAvailable()) || utils.isLaunchBarConfig(note.noteId) || this.noteContext?.viewScope?.viewMode !== "default";
+        const isReadOnly =
+            (note.isProtected && !protectedSessionHolder.isProtectedSessionAvailable())
+            || utils.isLaunchBarConfig(note.noteId)
+            || this.noteContext?.viewScope?.viewMode !== "default";
 
-        this.$noteTitle.val(isReadOnly ? await this.noteContext?.getNavigationTitle() || "" : note.title);
+        this.$noteTitle.val(isReadOnly ? (await this.noteContext?.getNavigationTitle()) || "" : note.title);
         this.$noteTitle.prop("readonly", isReadOnly);
 
         this.setProtectedStatus(note);

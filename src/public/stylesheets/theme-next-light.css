@@ -32,7 +32,7 @@
     --cmd-button-icon-color: black;
     --cmd-button-keyboard-shortcut-background: #00000017;
     --cmd-button-keyboard-shortcut-color: black;
-    --cmd-button-disabled-opacity: .5;
+    --cmd-button-disabled-opacity: 0.5;
 
     --icon-button-color: currentColor;
     --icon-button-hover-background: var(--hover-item-background-color);
@@ -82,9 +82,20 @@
     --menu-item-keyboard-shortcut-color: #666666a8;
     --menu-item-arrow-color: #00000080;
     --menu-item-delimiter-color: #00000030;
+    --menu-item-group-header-color: #00000061;
 
+    --modal-backdrop-color: #7c7c7c;
+    --modal-shadow-color: #00000033;
+    --modal-border-color: #797979;
     --modal-background-color: white;
-    --modal-backdrop-color: black;
+    --modal-title-color: gray;
+    --modal-control-button-background: #0000001a;
+    --modal-control-button-color: #737373;
+    --modal-control-button-hover-color: white;
+    --modal-control-button-hover-background: gray;
+    --modal-close-button-hover-background: var(--tab-close-button-hover-background);
+    --modal-footer-background: #00000008;
+    --modal-footer-color: #00000085;
 
     --quick-search-background: #00000012;
     --quick-search-color: #06060682;
@@ -134,6 +145,11 @@
     --inactive-tab-background-color: transparent;
     --inactive-tab-hover-background-color: #00000016;
     --inactive-tab-text-color: #4e4e4e;
+
+    --alert-bar-background: #32637b29;
+
+    --promoted-attribute-card-background-color: var(--card-background-color);
+    --promoted-attribute-card-shadow-color: #00000033;
 
     --new-tab-button-background: #d8d8d8;
     --new-tab-button-color: #3a3a3a;

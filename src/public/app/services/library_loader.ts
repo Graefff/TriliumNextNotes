@@ -32,7 +32,7 @@ const CODE_MIRROR: Library = {
 
         const mimeTypes = mimeTypesService.getMimeTypes();
         for (const mimeType of mimeTypes) {
-            if (mimeType.codeMirrorSource) {
+            if (mimeType.enabled && mimeType.codeMirrorSource) {
                 scriptsToLoad.push(mimeType.codeMirrorSource);
             }
         }
@@ -72,10 +72,6 @@ const MARKJS: Library = {
     js: ["node_modules/mark.js/dist/jquery.mark.es6.min.js"]
 };
 
-const I18NEXT: Library = {
-    js: ["node_modules/i18next/i18next.min.js", "node_modules/i18next-http-backend/i18nextHttpBackend.min.js"]
-};
-
 const HIGHLIGHT_JS: Library = {
     js: () => {
         const mimeTypes = mimeTypesService.getMimeTypes();
@@ -103,8 +99,8 @@ const HIGHLIGHT_JS: Library = {
 };
 
 const LEAFLET: Library = {
-    css: [ "node_modules/leaflet/dist/leaflet.css" ],
-}
+    css: ["node_modules/leaflet/dist/leaflet.css"]
+};
 
 async function requireLibrary(library: Library) {
     if (library.css) {
@@ -194,7 +190,6 @@ export default {
     WHEEL_ZOOM,
     MERMAID,
     MARKJS,
-    I18NEXT,
     HIGHLIGHT_JS,
     LEAFLET
 };

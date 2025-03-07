@@ -2,7 +2,7 @@ name: Nightly Release
 on:
   # This can be used to automatically publish nightlies at UTC nighttime
   schedule:
-    - cron: '0 2 * * *' # run at 2 AM UTC
+    - cron: "0 2 * * *" # run at 2 AM UTC
   # This can be used to allow manually triggering nightlies from the web interface
   workflow_dispatch:
 env:
@@ -26,7 +26,7 @@ jobs:
             extension: [deb, rpm, zip, flatpak]
           - name: windows
             image: windows-latest
-            extension: exe
+            extension: [exe, zip]
     runs-on: ${{ matrix.os.image }}
     steps:
       - uses: actions/checkout@v4
@@ -38,13 +38,21 @@ jobs:
         shell: bash
         run: npm ci
       - name: Update nightly version
-        run: npm run ci-update-nightly-version
+        run: npm run chore:ci-update-nightly-version
       - name: Run the build
         uses: ./.github/actions/build-electron
         with:
           os: ${{ matrix.os.name }}
           arch: ${{ matrix.arch }}
           extension: ${{ join(matrix.os.extension, ' ') }}
+        env:
+          APPLE_APP_CERTIFICATE_BASE64: ${{ secrets.APPLE_APP_CERTIFICATE_BASE64 }}
+          APPLE_APP_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_APP_CERTIFICATE_PASSWORD }}
+          APPLE_INSTALLER_CERTIFICATE_BASE64: ${{ secrets.APPLE_INSTALLER_CERTIFICATE_BASE64 }}
+          APPLE_INSTALLER_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_INSTALLER_CERTIFICATE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
@@ -75,6 +83,7 @@ jobs:
       - name: Run the build
         uses: ./.github/actions/build-server
         with:
+          os: linux
           arch: ${{ matrix.arch }}
 
       - name: Publish release

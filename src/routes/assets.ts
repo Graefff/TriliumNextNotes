@@ -2,7 +2,7 @@ import assetPath from "../services/asset_path.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import express from "express";
-import { isDev } from "../services/utils.js";
+import { isDev, isElectron } from "../services/utils.js";
 import type serveStatic from "serve-static";
 
 const persistentCacheStatic = (root: string, options?: serveStatic.ServeStaticOptions<express.Response<any, Record<string, any>>>) => {
@@ -24,6 +24,11 @@ async function register(app: express.Application) {
 
         const frontendCompiler = webpack({
             mode: "development",
+            cache: {
+                type: "filesystem",
+                cacheDirectory: path.join(srcRoot, "..", ".cache", isElectron ? "electron" : "server")
+            },
+            plugins: productionConfig.plugins,
             entry: productionConfig.entry,
             module: productionConfig.module,
             resolve: productionConfig.resolve,
@@ -56,8 +61,6 @@ async function register(app: express.Application) {
     app.use(`/node_modules/katex/dist/`, express.static(path.join(srcRoot, "..", "node_modules/katex/dist/")));
     app.use(`/${assetPath}/node_modules/katex/dist/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/katex/dist/")));
 
-    app.use(`/${assetPath}/node_modules/dayjs/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/dayjs/")));
-
     app.use(`/${assetPath}/node_modules/boxicons/css/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/boxicons/css/")));
     app.use(`/${assetPath}/node_modules/boxicons/fonts/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/boxicons/fonts/")));
 
@@ -67,13 +70,9 @@ async function register(app: express.Application) {
 
     app.use(`/${assetPath}/node_modules/jquery-hotkeys/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/jquery-hotkeys/")));
 
-    app.use(`/${assetPath}/node_modules/split.js/dist/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/split.js/dist/")));
-
     app.use(`/${assetPath}/node_modules/panzoom/dist/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/panzoom/dist/")));
 
     // i18n
-    app.use(`/${assetPath}/node_modules/i18next/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/i18next/")));
-    app.use(`/${assetPath}/node_modules/i18next-http-backend/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/i18next-http-backend/")));
     app.use(`/${assetPath}/translations/`, persistentCacheStatic(path.join(srcRoot, "public", "translations/")));
 
     app.use(`/${assetPath}/node_modules/eslint/bin/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/eslint/bin/")));
@@ -90,8 +89,6 @@ async function register(app: express.Application) {
     app.use(`/${assetPath}/node_modules/normalize.css/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/normalize.css/")));
 
     app.use(`/${assetPath}/node_modules/jquery.fancytree/dist/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/jquery.fancytree/dist/")));
-
-    app.use(`/${assetPath}/node_modules/bootstrap/dist/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/bootstrap/dist/")));
 
     // CodeMirror
     app.use(`/${assetPath}/node_modules/codemirror/lib/`, persistentCacheStatic(path.join(srcRoot, "..", "node_modules/codemirror/lib/")));

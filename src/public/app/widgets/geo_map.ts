@@ -11,13 +11,18 @@ const TPL = `\
             height: 100%;
             overflow: hidden;
         }
+
+        .leaflet-top,
+        .leaflet-bottom {
+            z-index: 900;
+        }
     </style>
 
     <div class="geo-map-container"></div>
-</div>`
+</div>`;
 
 export type Leaflet = typeof import("leaflet");
-export type InitCallback = ((L: Leaflet) => void);
+export type InitCallback = (L: Leaflet) => void;
 
 export default class GeoMapWidget extends NoteContextAwareWidget {
 
@@ -35,23 +40,23 @@ export default class GeoMapWidget extends NoteContextAwareWidget {
 
         this.$container = this.$widget.find(".geo-map-container");
 
-        library_loader.requireLibrary(library_loader.LEAFLET)
-            .then(async () => {
-                const L = (await import("leaflet")).default;
+        library_loader.requireLibrary(library_loader.LEAFLET).then(async () => {
+            const L = (await import("leaflet")).default;
 
-                const map = L.map(this.$container[0], {
-                    worldCopyJump: true
-                });
-
-                this.map = map;
-                if (this.initCallback) {
-                    this.initCallback(L);
-                }
-
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                }).addTo(map);
+            const map = L.map(this.$container[0], {
+                worldCopyJump: true
             });
+
+            this.map = map;
+            if (this.initCallback) {
+                this.initCallback(L);
+            }
+
+            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                detectRetina: true
+            }).addTo(map);
+        });
     }
 
 }

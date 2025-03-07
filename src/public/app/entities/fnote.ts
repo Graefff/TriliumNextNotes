@@ -28,7 +28,8 @@ const NOTE_TYPE_ICONS = {
     doc: "bx bxs-file-doc",
     contentWidget: "bx bxs-widget",
     mindMap: "bx bx-sitemap",
-    geoMap: "bx bx-map-alt"
+    geoMap: "bx bx-map-alt",
+    taskList: "bx bx-list-check"
 };
 
 /**
@@ -36,7 +37,25 @@ const NOTE_TYPE_ICONS = {
  * end user. Those types should be used only for checking against, they are
  * not for direct use.
  */
-export type NoteType = "file" | "image" | "search" | "noteMap" | "launcher" | "doc" | "contentWidget" | "text" | "relationMap" | "render" | "canvas" | "mermaid" | "book" | "webView" | "code" | "mindMap" | "geoMap";
+export type NoteType =
+    | "file"
+    | "image"
+    | "search"
+    | "noteMap"
+    | "launcher"
+    | "doc"
+    | "contentWidget"
+    | "text"
+    | "relationMap"
+    | "render"
+    | "canvas"
+    | "mermaid"
+    | "book"
+    | "webView"
+    | "code"
+    | "mindMap"
+    | "geoMap"
+    | "taskList";
 
 export interface NotePathRecord {
     isArchived: boolean;
@@ -329,6 +348,7 @@ class FNote {
         // notes/clones cannot form tree cycles, it is possible to create attribute inheritance cycle via templates
         // when template instance is a parent of template itself
         if (path.includes(this.noteId)) {
+            console.log("Forming a path");
             return [];
         }
 
