@@ -17,7 +17,9 @@ if (isDev) {
     const debounce = (await import("debounce")).default;
     const debouncedReloadFrontend = debounce(() => reloadFrontend("source code change"), 200);
     chokidar
-        .watch("src/public")
+        .watch("src/public", {
+            ignored: "src/public/app/doc_notes/en/User Guide"
+        })
         .on("add", debouncedReloadFrontend)
         .on("change", debouncedReloadFrontend)
         .on("unlink", debouncedReloadFrontend);
@@ -188,12 +190,6 @@ function fillInAdditionalProperties(entityChange: EntityChange) {
                                                 WHERE attachmentId = ?`,
             [entityChange.entityId]
         );
-    } else if (entityChange.entityName === "tasks") {
-        entityChange.entity = becca.getTask(entityChange.entity);
-
-        if (!entityChange.entity) {
-            entityChange.entity = sql.getRow(`SELECT * FROM tasks WHERE taskId = ?`, [entityChange.entityId]);
-        }
     }
 
     if (entityChange.entity instanceof AbstractBeccaEntity) {
