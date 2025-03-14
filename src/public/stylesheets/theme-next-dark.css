@@ -103,6 +103,10 @@
     --modal-footer-background: #ffffff08;
     --modal-footer-color: #ffffff7a;
 
+    --toast-background: #4d4d4dc2;
+    --toast-text-color: #e1e1e1;
+    --toast-close-button-background: #ffffff33;
+
     --quick-search-background: #ffffff12;
     --quick-search-color: #ffffff52;
     --quick-search-hover-background: #ffffff1f;
@@ -133,6 +137,8 @@
 
     --protected-session-active-icon-color: #8edd8e;
     --sync-status-error-pulse-color: #f47871;
+
+    --right-pane-heading-color: gray;
 
     --root-background: var(--left-pane-background-color);
 
