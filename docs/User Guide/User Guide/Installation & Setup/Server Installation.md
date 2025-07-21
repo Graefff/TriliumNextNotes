@@ -5,14 +5,14 @@ This guide outlines the steps to install Trilium on your own server. You might c
 
 There are several ways to install Trilium on a server, each with its own advantages:
 
-*   **Recommended**: [Docker Installation](Server%20Installation/1.%20Installing%20the%20server/Docker%20Server%20Installation.md) - Available for **AMD64** and **ARM** architectures.
-*   [Packaged Server Installation](Server%20Installation/1.%20Installing%20the%20server/Packaged%20server%20installation.md)
+*   **Recommended**: [Docker Installation](Server%20Installation/1.%20Installing%20the%20server/Using%20Docker.md) - Available for **AMD64** and **ARM** architectures.
+*   [Packaged Server Installation](Server%20Installation/1.%20Installing%20the%20server/Packaged%20version%20for%20Linux.md)
 *   [PikaPods managed hosting](https://www.pikapods.com/pods?run=trilium-next)
-*   [Manual Installation](Server%20Installation/1.%20Installing%20the%20server/Manual%20server%20installation.md)
-*   [Kubernetes](Server%20Installation/1.%20Installing%20the%20server/Kubernetes%20server%20installation.md)
+*   [Manual Installation](Server%20Installation/1.%20Installing%20the%20server/Manually.md)
+*   [Kubernetes](Server%20Installation/1.%20Installing%20the%20server/Using%20Kubernetes.md)
 *   [Cloudron](https://www.cloudron.io/store/com.github.trilium.cloudronapp.html)
 *   [HomelabOS](https://homelabos.com/docs/software/trilium/)
-*   [NixOS Module](Server%20Installation/1.%20Installing%20the%20server/NixOS%20server%20installation.md)
+*   [NixOS Module](Server%20Installation/1.%20Installing%20the%20server/On%20NixOS.md)
 
 The server installation includes both web and [mobile frontends](Mobile%20Frontend.md).
 
@@ -30,18 +30,27 @@ By default, `config.ini`, the [database](../Advanced%20Usage/Database.md), and o
 export TRILIUM_DATA_DIR=/home/myuser/data/my-trilium-data
 ```
 
+### Disabling / Modifying the Upload Limit
+
+If you're running into the 250MB limit imposed on the server by default, and you'd like to increase the upload limit, you can set the `TRILIUM_NO_UPLOAD_LIMIT` environment variable to `true` disable it completely:
+
+```
+export TRILIUM_NO_UPLOAD_LIMIT=true 
+```
+
+Or, if you'd simply like to _increase_ the upload limit size to something beyond 250MB, you can set the `MAX_ALLOWED_FILE_SIZE_MB` environment variable to something larger than the integer `250` (e.g. `450` in the following example):
+
+```
+export MAX_ALLOWED_FILE_SIZE_MB=450
+```
+
 ### Disabling Authentication
 
-If you are running Trilium on localhost only or if authentication is handled by another component, you can disable Trilium’s authentication by adding the following to `config.ini`:
-
-```
-[General]
-noAuthentication=true
-```
+See <a class="reference-link" href="Server%20Installation/Authentication.md">Authentication</a>.
 
 ## Reverse Proxy Setup
 
-To configure a reverse proxy for Trilium, you can use either **nginx** or **Apache**.
+To configure a reverse proxy for Trilium, you can use either **nginx** or **Apache**. You can also check out the documentation stored in the Reverse proxy folder.
 
 ### nginx
 

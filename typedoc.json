@@ -1,8 +1,0 @@
-{
-  "outputs": [
-    {
-      "name": "html",
-      "path": "./docs/backend_api"
-    }
-  ]
-}

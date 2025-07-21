@@ -9,14 +9,14 @@ If you have trouble finding it the log files, there's also an in-app option in t
 
 ## Frontend logs
 
-To provide frontend logs, we need to open the Developer Console. Often the easiest way is to press `CTRL-SHIFT-I` which should work in most browsers (and desktop app). Make sure that the error producing action happened right before you copy&paste the errors, the console is cleared on app restart.
+To provide frontend logs, we need to open the Developer Console. Often the easiest way is to press <kbd>Ctrl</kbd>\-<kbd>Shift</kbd>\-<kbd>I</kbd> which should work in most browsers (and desktop app). Make sure that the error producing action happened right before you copy&paste the errors, the console is cleared on app restart.
 
 If that doesn't work, then:
 
 *   in Trilium desktop app, go to top-left menu button -> Advanced -> Open Dev Tools
 *   In Firefox/Chrome right-click anywhere in the page and click Inspect:
 
-![](../Attachments/error-logs-firefox-context.png)
+![](Error%20logs_error-logs-fire.png)
 
 Once you have Dev Tools open, click on "Console" tab:
 
@@ -36,4 +36,4 @@ Often times, bugs manifest themselves in specific notes and having them would gr
 
 In such case, please export the relevant note subtree by right-clicking it on the left tree, choosing Export - HTML as ZIP:
 
-![](../Attachments/error-logs-export-subtree.png)
+![](Error%20logs_error-logs-expo.png)

@@ -5,7 +5,7 @@ As Trilium is currently in beta, encountering bugs is to be expected.
 
 The first step in troubleshooting is often a restart.
 
-If you experience an UI issue, the frontend may have entered an inconsistent state. Reload the application by pressing `CTRL-R`. This will reload the frontend.
+If you experience an UI issue, the frontend may have entered an inconsistent state. Reload the application by pressing <kbd>Ctrl</kbd> + <kbd>R</kbd>. This will reload the frontend.
 
 If the issue persists or appears to be a backend problem, restart the entire application. For the desktop (Electron) build, simply close and reopen the window. If you're using a Docker build, restart the container.
 
@@ -21,7 +21,7 @@ TRILIUM_START_NOTE_ID=root ./trilium
 
 ## Broken Script Prevents Application Startup
 
-If a custom script causes Triliumto crash, and it is set as a startup script or in an active [custom widget](Note%20Types/Code/Custom%20Widgets.md), start Triliumin "safe mode" to prevent any custom scripts from executing:
+If a custom script causes Triliumto crash, and it is set as a startup script or in an active [custom widget](Scripting/Custom%20Widgets.md), start Triliumin "safe mode" to prevent any custom scripts from executing:
 
 ```
 TRILIUM_SAFE_MODE=true ./trilium
